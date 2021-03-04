@@ -27,7 +27,7 @@
   block:
     - name: split the path
       set_fact:
-        split_path: "{{ item.split('/') |  }}"
+        split_path: "{{ item.split('/') }}"
 
     - name: get the base path of the file
       debug:
