@@ -24,9 +24,8 @@
   with_indexed_items: "{{ existing_dotfile_info.results }}"
 
 - name: Loop over each full path
-  tasks:
-  - include: directory.yml fullpath={{ item }}
-    with_items: "{{ dotfiles_files }}"
+  include: directory.yml fullpath={{ item }}
+  with_items: "{{ dotfiles_files }}"
 
 - name: Link dotfiles into home folder.
   file:
