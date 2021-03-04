@@ -23,6 +23,17 @@
   when: "'@' not in item.1.stdout"
   with_indexed_items: "{{ existing_dotfile_info.results }}"
 
+- name: Create the subdirectories for the symlinks
+  block:
+    - name: split the path
+      set_fact:
+        split_path: "{{ item.split("/") |  }}"
+
+    - name: get the base path of the file
+      debug:
+        msg: "{{ split_path[:-1] | join('/') }}"
+
+
 - name: Link dotfiles into home folder.
   file:
     src: "{{ dotfiles_repo_local_destination }}/{{ item }}"
