@@ -13,4 +13,3 @@
       file:
         path: "{{ dotfiles_home }}/{{ file_directory_path }}"
         state: directory
-        mode: 0644
