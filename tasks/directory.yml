@@ -1,0 +1,15 @@
+---
+- name: Create the base directory & subdirectories for the symlinks
+  block:
+    - name: split the path
+      set_fact:
+        split_path: "{{ fullpath.split('/') }}"
+
+    - name: get the base path of the file
+      set_fact:
+        file_directory_path: "{{ split_path[:-1] | join('/') }}"
+
+    - name: create the directory
+      file:
+        path: "{{ dotfiles_home }}/{{ file_directory_path }}"
+        state: directory

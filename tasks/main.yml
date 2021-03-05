@@ -6,6 +6,7 @@
     version: "{{ dotfiles_repo_version }}"
     accept_hostkey: "{{ dotfiles_repo_accept_hostkey }}"
     recursive: "{{ dotfiles_repo_clone_recursive }}"
+    force: yes
   become: false
 
 - name: Ensure all configured dotfiles are links.
@@ -22,6 +23,10 @@
     state: absent
   when: "'@' not in item.1.stdout"
   with_indexed_items: "{{ existing_dotfile_info.results }}"
+
+- name: Loop over each full path
+  include: directory.yml fullpath={{ item }}
+  with_items: "{{ dotfiles_files }}"
 
 - name: Link dotfiles into home folder.
   file:
